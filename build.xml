@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DocumentRichEditor" default="FG" basedir=".">
+
+    <!-- ant clean-->
+	<tstamp prefix="build-info">
+		<format property="current-date" pattern="ddMMyyyy" locale="en" />
+		<format property="current-time" pattern="hh:mm:ss a z" locale="en" />
+	</tstamp>
+
+	<property name="project-name" value="${ant.project.name}" />
+	<property name="builder" value="Ejada" />
+	<property name="war-file-name" value="${project-name}" />
+	<property name="source-directory" value="src" />
+	<property name="web-directory" value="WebContent" />
+	<property name="web-xml-file" value="WebContent/WEB-INF/web.xml" />
+	<property name="images-folder" value="WebContent/resources/images" />
+	<property name="build-directory" value="build" />
+	<property name="classes-directory" value="build/classes" />
+	<property name="version-directory" value="C:\Version\DocumentRichEditor" />
+	<property name="lib-directory" value="WebContent/WEB-INF/lib" />
+	<property name="oracle-home" value="C:\Oracle\Middleware\Oracle_Home\wlserver\modules" />
+	<property name="webLogic-home" value="C:\Oracle\Middleware\Oracle_Home\wlserver\server\lib" />
+
+	<path id="compile.classpath">
+		<fileset includes="*.jar" dir="${lib-directory}" />
+		<fileset includes="*.jar" dir="${oracle-home}" />
+		<fileset includes="*.jar" dir="${webLogic-home}" />
+	</path>
+	
+	<target name="clean">
+		<delete dir="${classes-directory}" />
+		<delete dir="${build-directory}" />
+	</target>
+	
+	<target name="init" depends="clean">
+		<mkdir dir="${build-directory}" />
+		<mkdir dir="${classes-directory}"/>
+	</target>
+			
+	<target name="compile" depends="init" >
+		<javac destdir="${classes-directory}" debug="true" srcdir="src">
+			<classpath refid="compile.classpath"/>
+		</javac>
+
+		<copy todir="${classes-directory}">
+			<fileset dir="${source-directory}" includes="**/*.xml,**/*.properties"/>
+		</copy>
+	</target>
+
+	<target name="WAR" depends="compile">
+		<war warfile="${build-directory}/${war-file-name}" webxml="${web-xml-file}">
+			<fileset dir="${web-directory}">
+				<exclude name="**/multicustomers/**" />
+				<exclude name="**/resources/images/**" />
+			</fileset>
+			
+			<classes dir="${classes-directory}">
+				<exclude name="**/resources/config.properties"/>
+				<exclude name="**/multicustomers/**" />
+			</classes>
+
+			<manifest>
+				<attribute name="Built-By" value="${builder}" />
+				<attribute name="Built-On" value="${build-info.current-date}" />
+				<attribute name="Built-At" value="${build-info.current-time}" />
+			</manifest>
+		</war>
+	</target>
+	
+	<target name="FG" depends="WAR">
+		<replaceregexp byline="true">
+		  <regexp pattern="version = (.*)"/>
+		  <substitution expression="version = ${version}"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/fg/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		<replaceregexp byline="true">
+		  <regexp pattern="releaseDate = (.*)"/>
+		  <substitution expression="releaseDate = ${releaseDate}"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/fg/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		<replaceregexp byline="true">
+		  <regexp pattern="LDAP = (.*)"/>
+		  <substitution expression="LDAP = true"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/fg/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		<zip destfile="${build-directory}/${war-file-name}" update = "true">
+			<zipfileset dir="${web-directory}/resources/multicustomers/fgresources/images" prefix="resources/images"/>
+			<zipfileset dir="${source-directory}/com/code/multicustomers/fg/" prefix="WEB-INF/classes/com/code/resources"/>
+		</zip>
+		<copy file="${build-directory}/${war-file-name}" tofile="${version-directory}/V${version}/fg/${war-file-name}_Prod.war"/>
+		<replaceregexp byline="true">
+		  <regexp pattern="LDAP = (.*)"/>
+		  <substitution expression="LDAP = false"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/fg/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		
+		<zip destfile="${build-directory}/${war-file-name}" update = "true">
+			<zipfileset dir="${source-directory}/com/code/multicustomers/fg/" prefix="WEB-INF/classes/com/code/resources"/>
+		</zip>
+		<copy file="${build-directory}/${war-file-name}" tofile="${version-directory}/V${version}/fg/${war-file-name}_Test.war"/>
+	</target>
+
+	<target name="SSF" depends="WAR">
+		<replaceregexp byline="true">
+		  <regexp pattern="version = (.*)"/>
+		  <substitution expression="version = ${version}"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/ssf/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		<replaceregexp byline="true">
+		  <regexp pattern="releaseDate = (.*)"/>
+		  <substitution expression="releaseDate = ${releaseDate}"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/ssf/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		<replaceregexp byline="true">
+		  <regexp pattern="LDAP = (.*)"/>
+		  <substitution expression="LDAP = true"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/ssf/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		<zip destfile="${build-directory}/${war-file-name}" update = "true">
+			<zipfileset dir="${web-directory}/resources/multicustomers/ssfresources/images" prefix="resources/images"/>
+			<zipfileset dir="${source-directory}/com/code/multicustomers/ssf/" prefix="WEB-INF/classes/com/code/resources"/>
+		</zip>
+		<copy file="${build-directory}/${war-file-name}" tofile="${version-directory}/V${version}/ssf/${war-file-name}_Prod.war"/>
+		<replaceregexp byline="true">
+		  <regexp pattern="LDAP = (.*)"/>
+		  <substitution expression="LDAP = false"/>
+		  <fileset dir="${source-directory}/com/code/multicustomers/ssf/">
+		    <include name="config.properties"/>
+		  </fileset>
+		</replaceregexp>
+		
+		<zip destfile="${build-directory}/${war-file-name}" update = "true">
+			<zipfileset dir="${source-directory}/com/code/multicustomers/ssf/" prefix="WEB-INF/classes/com/code/resources"/>
+		</zip>
+		<copy file="${build-directory}/${war-file-name}" tofile="${version-directory}/V${version}/ssf/${war-file-name}_Test.war"/>
+	</target>
+	
+	<target name="SFSP" depends="WAR">
+			<replaceregexp byline="true">
+			  <regexp pattern="version = (.*)"/>
+			  <substitution expression="version = ${version}"/>
+			  <fileset dir="${source-directory}/com/code/multicustomers/sfsp/">
+			    <include name="config.properties"/>
+			  </fileset>
+			</replaceregexp>
+			<replaceregexp byline="true">
+			  <regexp pattern="releaseDate = (.*)"/>
+			  <substitution expression="releaseDate = ${releaseDate}"/>
+			  <fileset dir="${source-directory}/com/code/multicustomers/sfsp/">
+			    <include name="config.properties"/>
+			  </fileset>
+			</replaceregexp>
+			<replaceregexp byline="true">
+			  <regexp pattern="LDAP = (.*)"/>
+			  <substitution expression="LDAP = true"/>
+			  <fileset dir="${source-directory}/com/code/multicustomers/sfsp/">
+			    <include name="config.properties"/>
+			  </fileset>
+			</replaceregexp>
+			<zip destfile="${build-directory}/${war-file-name}" update = "true">
+				<zipfileset dir="${web-directory}/resources/multicustomers/sfspresources/images" prefix="resources/images"/>
+				<zipfileset dir="${source-directory}/com/code/multicustomers/sfsp/" prefix="WEB-INF/classes/com/code/resources"/>
+			</zip>
+			<copy file="${build-directory}/${war-file-name}" tofile="${version-directory}/V${version}/sfsp/${war-file-name}_Prod.war"/>
+			<replaceregexp byline="true">
+			  <regexp pattern="LDAP = (.*)"/>
+			  <substitution expression="LDAP = false"/>
+			  <fileset dir="${source-directory}/com/code/multicustomers/sfsp/">
+			    <include name="config.properties"/>
+			  </fileset>
+			</replaceregexp>
+			
+			<zip destfile="${build-directory}/${war-file-name}" update = "true">
+				<zipfileset dir="${source-directory}/com/code/multicustomers/sfsp/" prefix="WEB-INF/classes/com/code/resources"/>
+			</zip>
+			<copy file="${build-directory}/${war-file-name}" tofile="${version-directory}/V${version}/sfsp/${war-file-name}_Test.war"/>
+		</target>
+	
+</project>

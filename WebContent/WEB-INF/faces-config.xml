@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+      http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+   version="2.0">  
+   
+   <application>
+        <locale-config>
+            <default-locale>ar</default-locale>
+            <supported-locale>ar</supported-locale>
+        	<supported-locale>en</supported-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>com.code.resources.messages</base-name>
+	    <var>msgs</var>
+        </resource-bundle>        
+    </application>
+    
+    <lifecycle>
+      	<phase-listener>com.code.ui.config.AppPhaseListener</phase-listener>
+    </lifecycle>
+    
+    <navigation-rule>
+        <from-view-id>/Main/Login.xhtml</from-view-id>
+        <navigation-case>
+          <from-outcome>SUCCESS</from-outcome>
+          <!-- <to-view-id>/Main/Welcome.xhtml</to-view-id> -->
+          <to-view-id>/Main/Welcome.xhtml</to-view-id>
+          <!-- <to-view-id>/Setup/AramcoAccounts/AramcoAccounts.xhtml</to-view-id> -->
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>*</from-view-id>
+  	    <navigation-case>
+            <from-outcome>SUCCESS</from-outcome>
+            <to-view-id>/Main/Message.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Setup/Warehouse/Warehouse.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>WAREHOUSE_LOCATIONS</from-outcome>
+            <to-view-id>/Setup/Warehouse/WarehouseLocations.xhtml</to-view-id>
+        </navigation-case>
+        
+         <navigation-case>
+            <from-outcome>WAREHOUSE_ITEMS</from-outcome>
+            <to-view-id>/Setup/Warehouse/WarehouseItems.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Setup/Warehouse/WarehouseItems.xhtml</from-view-id>
+         <navigation-case>
+            <from-outcome>EXCEEDING_LIMITS_HANDLING</from-outcome>
+            <to-view-id>/Setup/Warehouse/ExceedingLimitsHandling.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>WAREHOUSE</from-outcome>
+            <to-view-id>/Setup/Warehouse/Warehouse.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/YardReceiveManagement.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>RCV_ORDR_SHPMNT</from-outcome>
+            <to-view-id>/Transactions/Yards/ReceiveYardItems.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SHOW_ORDR</from-outcome>
+            <to-view-id>/Transactions/Yards/ViewYardReceiveOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+             <from-outcome>PREV_RCV</from-outcome>
+            <to-view-id>/Transactions/Yards/PreviousDeliverables.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+             <from-outcome>RECORD_RCV_ORDER</from-outcome>
+            <to-view-id>/Transactions/Yards/AddNewYardReceiveOrder.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+     <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/AddNewYardReceiveOrder.xhtml</from-view-id>
+        <navigation-case>
+             <from-outcome>ADD_NEW_YARD_RECEIVE_ORDER</from-outcome>
+            <to-view-id>/Transactions/Yards/AddNewYardReceiveOrder.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/InquiriesMenu/ReturnItemsTransactionSearch.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>RETURN_TRANS_VIEW</from-outcome>
+            <to-view-id>/Requests/ItemReturnRequests.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/YardCheckManagement.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>NOT_CHECKED</from-outcome>
+            <to-view-id>/Transactions/Yards/AddYardChecker.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/warehouse/WarehouseIssueRequestManagement.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>VIEW_TRANS</from-outcome>
+            <to-view-id>/Transactions/warehouse/WarehouseIssueTransactionManagement.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/warehouse/AddIssueTransaction.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>VIEW_TRANS_FROM_ADD</from-outcome>
+            <to-view-id>/Transactions/warehouse/WarehouseIssueTransactionManagement.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+     
+     
+     <navigation-rule>
+  	     <from-view-id>/Transactions/warehouse/WarehouseIssueTransactionManagement.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>COPY_ADD_ISSUE_ORDER</from-outcome>
+            <to-view-id>/Requests/IssueRequests.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+     
+     <navigation-rule>
+  	    <from-view-id>/Transactions/warehouse/WarehouseIssueTransactionManagement.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>ADD_ISSUE_TRANS</from-outcome>
+            <to-view-id>/Transactions/warehouse/AddIssueTransaction.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/YardCheckManagement.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>CHECKED</from-outcome>
+            <to-view-id>/Transactions/Yards/AddYardChecker.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/AddYardChecker.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>NEXT_STEP</from-outcome>
+            <to-view-id>/Transactions/Yards/YardCheckItems.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/contructs/YardRCVOrderClosing.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>VIEW_ORDER_DETAILS</from-outcome>
+            <to-view-id>/Transactions/Yards/ViewYardReceiveOrder.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/YardSupplierReturn.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>SUPP_RETURN_TRANSACTION</from-outcome>
+            <to-view-id>/Transactions/Yards/ReturnTransaction.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+     <navigation-rule>
+  	    <from-view-id>/Transactions/custody/CustodySearch.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>CUSTODY_VIEW</from-outcome>
+            <to-view-id>/Transactions/custody/CustodyView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/InquiriesMenu/IssueOredersSearch.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>ISSUE_ORDER_VIEW</from-outcome>
+            <to-view-id>/Transactions/warehouse/WarehouseIssueTransactionManagement.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+	    <from-view-id>/InquiriesMenu/IssueRequestsMangement.xhtml</from-view-id>
+	    <navigation-case>
+	    	<from-outcome>ADD_EDIT_ISSUE_ORDER</from-outcome>
+	    	<to-view-id>/Requests/IssueRequests.xhtml</to-view-id>
+	    </navigation-case>
+	    
+	    <navigation-case>
+	    	<from-outcome>ISSUE_REQ_VIEW</from-outcome>
+	    	<to-view-id>/Transactions/warehouse/WarehouseIssueTransactionManagement.xhtml</to-view-id>
+	    </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Requests/IssueRequests.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>BACK_TO_MNG</from-outcome>
+            <to-view-id>/InquiriesMenu/IssueRequestsMangement.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ADD_COPY_ISSUE_ORDER</from-outcome>
+            <to-view-id>/Requests/IssueRequests.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/custody/CustodyView.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>CUSTODY_BACK</from-outcome>
+            <to-view-id>/Transactions/custody/CustodySearch.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+     <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/DeliverFromYardToWarehouse.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>MNG_DLVR_TO_WHR</from-outcome>
+            <to-view-id>/Transactions/Yards/ManageDeliverFromYardToWarehouse.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+     <navigation-rule>
+  	    <from-view-id>/Transactions/warehouse/IssueItemsFromYardToWarehouse.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>VIEW_WHR_RCV_TRNS_DTLS</from-outcome>
+            <to-view-id>/Transactions/warehouse/ViewWarehouseReceiveTransaction.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/aramco/AramcoRequest.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>RECORD_ARAMCO_REQUEST</from-outcome>
+            <to-view-id>/Transactions/aramco/RecordingOrder.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/contructs/SupplierWarnings.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>SEND_WARNING</from-outcome>
+            <to-view-id>/Transactions/contructs/SendWarning.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/contructs/YardRCVOrderClosing.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>CLOSE</from-outcome>
+            <to-view-id>/Transactions/contructs/ClosingOrderTransaction.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/aramco/RecordingOrder.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>RECIEVED_ARAMCO_REQUEST</from-outcome>
+            <to-view-id>/Transactions/aramco/AramcoRequest.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/aramco/AramcoDeliveryToStations.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>DELIVER_GAS</from-outcome>
+            <to-view-id>/Transactions/aramco/GasolineDelivery.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+  	    <from-view-id>/Transactions/aramco/GasolineDelivery.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>DELIVERED_REQUEST</from-outcome>
+            <to-view-id>/Transactions/aramco/AramcoDeliveryToStations.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    
+     <navigation-rule>
+  	    <from-view-id>/Transactions/Yards/PreviousDeliverables.xhtml</from-view-id>
+  	    <navigation-case>
+            <from-outcome>EDIT_RCV_TRNS</from-outcome>
+            <to-view-id>/Transactions/Yards/ReceiveYardItems.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+  	    <from-view-id>*</from-view-id>
+  	    <navigation-case>
+            <from-outcome>INBOX</from-outcome>
+            <to-view-id>/WorkList/WFInbox.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+		<from-view-id>/Setup/Warehouse/Warehouse.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>WAREHOUSE_LOCATIONS</from-outcome>
+			<to-view-id>/Setup/Warehouse/WarehouseLocations.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	 <navigation-rule>
+		<from-view-id>/Transactions/warehouse/TransferOrderManagement.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>TRNSFR_ORDR</from-outcome>
+			<to-view-id>/Transactions/warehouse/TransferOrder.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	 <navigation-rule>
+		<from-view-id>/Requests/TransferOrderSearch.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>TRNSFR_ORDR_SEARCH</from-outcome>
+			<to-view-id>/Transactions/warehouse/TransferOrder.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/Requests/TransferOrderSearch.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>TRNSFR_ORDR_NEW</from-outcome>
+			<to-view-id>/Requests/TransferRequests.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/Transactions/warehouse/TransferOrderManagement.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>TRNSFR_ORDR_VIEW</from-outcome>
+			<to-view-id>/Requests/TransferRequests.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/Transactions/Inventory/ContinueInventoryTransaction.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>INV_INSERT_ACTUAL_BALANCE</from-outcome>
+			<to-view-id>/Transactions/Inventory/InsertActualBalance.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>INV_FINISH_TRNS</from-outcome>
+			<to-view-id>/Transactions/Inventory/FinishInventoryTransaction.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>INV_EDIT</from-outcome>
+			<to-view-id>/Transactions/Inventory/InventoryTransactions.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>INV_VIEW_TRNS</from-outcome>
+			<to-view-id>/Transactions/Inventory/ViewInventoryTransaction.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	 <navigation-rule>
+		<from-view-id>/InquiriesMenu/ItemPriceAndStockQuantitySearch.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>WAREHOUSE_ITEMS</from-outcome>
+            <to-view-id>/Setup/Warehouse/WarehouseItems.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+</faces-config>
